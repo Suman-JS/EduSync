@@ -43,7 +43,7 @@ const SidebarItem = ({ icon: Icon, label, href }: SidebarItemProps) => {
             </div>
             <div
                 className={cn(
-                    "ml-auto h-[3.1rem] border-2 border-sky-700 opacity-0 transition-all",
+                    "ml-auto h-[3.2rem] border-2 border-sky-700 opacity-0 transition-all",
                     isActive && "opacity-100"
                 )}
             />

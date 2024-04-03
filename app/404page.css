@@ -1,0 +1,146 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+*::before,
+*::after {
+    content: "";
+    position: absolute;
+}
+
+.parent {
+    height: 100svh;
+    width: 100svw;
+    background: #1b0034;
+    background-image: linear-gradient(135deg, #1b0034 10%, #33265c 100%);
+    background-attachment: fixed;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.error {
+    width: 100%;
+    height: auto;
+    margin: 50px auto;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.dracula {
+    width: 230px;
+    height: 300px;
+    display: inline-block;
+    margin: auto;
+}
+
+.error .p {
+    height: 100%;
+    color: #c0d7dd;
+    font-size: 280px;
+    margin: 50px;
+    display: inline-block;
+    font-family: "Anton", sans-serif;
+    font-family: "Combo", cursive;
+}
+
+.con {
+    width: 500px;
+    height: 500px;
+    position: relative;
+    margin: 9% auto 0;
+    animation: ani9 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes ani9 {
+    0% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(30px);
+    }
+}
+
+.con > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.hair {
+    top: -20px;
+    width: 210px;
+    height: 200px;
+    background: #c0d7dd;
+    border-radius: 0 50% 0 50%;
+    transform: rotate(45deg);
+    background: #33265c;
+}
+.hair-r {
+    left: 20px;
+    width: 210px;
+    height: 200px;
+    background: #c0d7dd;
+    border-radius: 0 50% 0 50%;
+    transform: rotate(45deg);
+    background: #33265c;
+}
+.head {
+    width: 200px;
+    height: 200px;
+    background: #c0d7dd;
+    border-radius: 0 50% 0 50%;
+    transform: rotate(45deg);
+}
+.eye {
+    width: 20px;
+    height: 20px;
+    background: #111113;
+    border-radius: 50%;
+    top: 15%;
+    left: 11.5%;
+    transition: 0.3s linear;
+}
+.eye-r {
+    left: 24%;
+}
+
+.mouth {
+    width: 60px;
+    height: 20px;
+    background: #840021;
+    top: 20%;
+    left: 14%;
+    border-radius: 50% / 0 0 100% 100%;
+}
+.mouth::after {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 13px solid #ffffff;
+    left: 10px;
+}
+.mouth::before {
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 13px solid #ffffff;
+    left: 40px;
+}
+
+.blod {
+    width: 8px;
+    height: 20px;
+    background: #840021;
+    top: 23%;
+    left: 17%;
+    border-radius: 20px;
+}
+.blod::after {
+    width: 2px;
+    height: 10px;
+    background: #fff;
+    top: 20%;
+    left: 10%;
+    border-radius: 20px;
+}

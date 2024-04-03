@@ -14,6 +14,9 @@ const config = {
     ],
     prefix: "",
     theme: {
+        fontFamily: {
+            err: ["Combo", "cursive"],
+        },
         container: {
             center: true,
             padding: "2rem",
@@ -61,6 +64,7 @@ const config = {
                 lg: "var(--radius)",
                 md: "calc(var(--radius) - 2px)",
                 sm: "calc(var(--radius) - 4px)",
+                blod: "50% 50% 50% 0",
             },
             keyframes: {
                 "accordion-down": {
@@ -79,11 +83,29 @@ const config = {
                         backgroundPosition: "350% 50%, 350% 50%",
                     },
                 },
+                blob: {
+                    from: {
+                        opacity: "1",
+                    },
+                    to: {
+                        opacity: "0",
+                        background: "red",
+                        top: "50%",
+                    },
+                },
             },
             animation: {
                 "accordion-down": "accordion-down 0.2s ease-out",
                 "accordion-up": "accordion-up 0.2s ease-out",
                 aurora: "aurora 60s linear infinite",
+                blod: "blob 2s linear infinite",
+            },
+            boxShadow: {
+                pnf: "0 0 20px 0 #c0d7dd",
+                btn: "0 0 10px 0 #c0d7dd",
+            },
+            transitionDuration: {
+                "300": "300ms",
             },
         },
     },

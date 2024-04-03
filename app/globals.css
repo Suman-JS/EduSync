@@ -80,3 +80,13 @@ body,
         @apply bg-background text-foreground;
     }
 }
+
+@layer components {
+    .error {
+        @apply font-err mt-[20px] text-center text-[30px] text-[#c0d7dd];
+    }
+
+    .blod2 {
+        @apply rounded-blod animate-blod left-[20%] top-[23%] h-[13px] w-[13px] rotate-[130] opacity-0;
+    }
+}
