@@ -15,7 +15,7 @@ const config = {
     prefix: "",
     theme: {
         fontFamily: {
-            err: ["Combo", "cursive"],
+            err: ["Inter"],
         },
         container: {
             center: true,
