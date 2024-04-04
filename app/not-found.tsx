@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import "./404page.css";
 
@@ -29,7 +28,7 @@ export default function NotFound() {
                             Oops, the page you&apos;re looking for Disappeared!
                         </p>
                         <Link href="/">
-                            <button className="hover:shadow-pnf font-err shadow-btn  transi z-[9] mt-[20px] cursor-pointer rounded-[10px] border-none bg-[#c0d7dd] pb-[10px] pl-[20px] pr-[20px] pt-[10px] text-[30px] text-[#33265c] duration-300 ease-linear">
+                            <button className="transi z-[9] mt-[20px]  cursor-pointer rounded-[10px] border-none bg-[#c0d7dd] pb-[10px] pl-[20px] pr-[20px] pt-[10px] font-err text-[30px] text-[#33265c] shadow-btn duration-300 ease-linear hover:shadow-pnf">
                                 Go Back
                             </button>
                         </Link>

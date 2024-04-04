@@ -6,19 +6,9 @@ const Logo = () => {
     return (
         <>
             {isDarkMode ? (
-                <Image
-                    height={140}
-                    width={160}
-                    alt="Logo"
-                    src="/logo-white.png"
-                />
+                <Image alt="Logo" src="/logo-white.png" priority />
             ) : (
-                <Image
-                    height={140}
-                    width={160}
-                    alt="Logo"
-                    src="/logo-color.png"
-                />
+                <Image alt="Logo" src="/logo-color.png" priority />
             )}
         </>
     );
