@@ -29,6 +29,10 @@ NEXT_STRIPE_SECRET_KEY=your_stripe_secret_key
 
 
 DATABASE_URL=your_mysql_db_url
+
+UPLOADTHING_SECRET=your_uploadthing_secret
+
+UPLOADTHING_APP_ID=uploadthing_appid
 ```
 
 ### Without docker
@@ -54,6 +58,10 @@ NEXT_STRIPE_SECRET_KEY=your_stripe_secret_key
 
 
 DATABASE_URL=your_mysql_db_url
+
+UPLOADTHING_SECRET=your_uploadthing_secret
+
+UPLOADTHING_APP_ID=uploadthing_appid
 ```
 
 For dev mode:

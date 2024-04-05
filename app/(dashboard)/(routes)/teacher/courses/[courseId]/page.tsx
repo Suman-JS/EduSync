@@ -5,6 +5,9 @@ import React from "react";
 import { db } from "@/lib/db";
 import { IconBadge } from "@/components/IconBadge";
 import { LayoutDashboard } from "lucide-react";
+import TitleForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/TitleForm";
+import DescriptionForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/DescriptionForm";
+import { ImageForm } from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/ImageForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     const { userId } = auth();
@@ -50,6 +53,15 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
                     <div className="flex items-center gap-x-2">
                         <IconBadge icon={LayoutDashboard} />
                         <h2 className="text-xl">Customize your course</h2>
+                    </div>
+                    <div>
+                        <TitleForm initialData={course} courseId={course.id} />
+                        <DescriptionForm
+                            initialData={course}
+                            courseId={course.id}
+                        />
+
+                        <ImageForm initialData={course} courseId={course.id} />
                     </div>
                 </div>
             </div>

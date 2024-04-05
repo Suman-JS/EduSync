@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { withUt } from "uploadthing/tw";
 
 const {
     default: flattenColorPalette,
@@ -112,6 +113,10 @@ const config = {
     plugins: [require("tailwindcss-animate"), addVariablesForColors],
 } satisfies Config;
 
+export default withUt({
+    ...config,
+});
+
 function addVariablesForColors({ addBase, theme }: any) {
     let allColors = flattenColorPalette(theme("colors"));
     let newVars = Object.fromEntries(
@@ -122,5 +127,3 @@ function addVariablesForColors({ addBase, theme }: any) {
         ":root": newVars,
     });
 }
-
-export default config;
