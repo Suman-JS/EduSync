@@ -1,14 +1,12 @@
 "use client";
 
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import * as z from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Pencil } from "lucide-react";
-import { useState } from "react";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
-import { Course } from "@prisma/client";
 
 import {
     Form,
@@ -18,93 +16,88 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
+import { Pencil } from "lucide-react";
+import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
-import { Combobox } from "@/components/ui/combobox";
+import { Course } from "@prisma/client";
+import { Input } from "@/components/ui/input";
+import { formatPrice } from "@/lib/format";
 
-interface CategoryFormProps {
+type PriceFormProps = {
     initialData: Course;
     courseId: string;
-    options: { label: string; value: string }[];
-}
+};
 
 const formSchema = z.object({
-    categoryId: z.string().min(1),
+    price: z.coerce.number(),
 });
 
-export const CategoryForm = ({
-    initialData,
-    courseId,
-    options,
-}: CategoryFormProps) => {
+const PriceForm = ({ initialData, courseId }: PriceFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
-
-    const toggleEdit = () => setIsEditing((current) => !current);
-
     const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            categoryId: initialData?.categoryId || "",
+            price: initialData?.price || undefined,
         },
     });
 
     const { isSubmitting, isValid } = form.formState;
-
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.patch(`/api/courses/${courseId}`, values);
             toast.success("Course updated successfully.");
             toggleEdit();
             router.refresh();
-        } catch {
-            toast.error("Something went wrong");
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong.");
         }
     };
 
-    const selectedOption = options.find(
-        (option) => option.value === initialData.categoryId
-    );
-
+    const toggleEdit = () => {
+        setIsEditing((current) => !current);
+    };
     return (
         <div className="mt-6 rounded-md border bg-slate-100 p-4">
             <div className="flex items-center justify-between font-medium">
-                Course category
-                <Button onClick={toggleEdit} variant="ghost">
+                Course price
+                <Button variant="ghost" onClick={toggleEdit}>
                     {isEditing ? (
                         <>Cancel</>
                     ) : (
                         <>
                             <Pencil className="mr-2 h-4 w-4" />
-                            Edit category
+                            Edit price
                         </>
                     )}
                 </Button>
             </div>
-            {!isEditing && (
-                <p
-                    className={cn(
-                        "mt-2 text-sm",
-                        !initialData.categoryId && "italic text-slate-500"
-                    )}
-                >
-                    {selectedOption?.label || "No category"}
+            {!isEditing ? (
+                <p className="mt-2 text-sm">
+                    {initialData.price
+                        ? formatPrice(initialData.price)
+                        : formatPrice(0)}
                 </p>
-            )}
-            {isEditing && (
+            ) : (
                 <Form {...form}>
                     <form
-                        onSubmit={form.handleSubmit(onSubmit)}
                         className="mt-4 space-y-4"
+                        onSubmit={form.handleSubmit(handleSubmit)}
                     >
                         <FormField
                             control={form.control}
-                            name="categoryId"
+                            name="price"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Combobox
-                                            options={options}
+                                        <Input
+                                            type="number"
+                                            step="0.01"
+                                            inputMode="numeric"
+                                            disabled={isSubmitting}
+                                            placeholder="Set a price for your course"
                                             {...field}
                                         />
                                     </FormControl>
@@ -126,3 +119,5 @@ export const CategoryForm = ({
         </div>
     );
 };
+
+export default PriceForm;
