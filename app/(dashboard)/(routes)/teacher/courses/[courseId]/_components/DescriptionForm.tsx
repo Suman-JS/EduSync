@@ -53,7 +53,7 @@ const DescriptionForm = ({ initialData, courseId }: DescriptionFormProps) => {
             router.refresh();
         } catch (error) {
             console.error(error);
-            toast.error("Something went wrong.");
+            toast.error("Something went wrong!");
         }
     };
 
