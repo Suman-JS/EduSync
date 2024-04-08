@@ -2,12 +2,11 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon } from "lucide-react";
+import { Pencil, PlusCircle, ImageIcon, File } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Attachment, Course } from "@prisma/client";
-import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import FileUpload from "@/components/FileUpload";
@@ -41,6 +40,7 @@ export const AttachmentForm = ({
             toast.error("Something went wrong!");
         }
     };
+    console.log(initialData.attachments);
 
     return (
         <div className="mt-6 rounded-md border bg-slate-100 p-4">
@@ -59,9 +59,24 @@ export const AttachmentForm = ({
             {!isEditing && (
                 <>
                     {initialData.attachments.length === 0 && (
-                        <p className=" mt-2 text-sm italic text-slate-500">
+                        <p className="mt-2 text-sm italic text-slate-500">
                             No attachments yet.
                         </p>
+                    )}
+                    {initialData.attachments.length > 0 && (
+                        <div className="space-y-2">
+                            {initialData.attachments.map((attachment) => (
+                                <div
+                                    key={attachment.id}
+                                    className="flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700"
+                                >
+                                    <File className="mr-2 h-4 w-4 flex-shrink-0" />
+                                    <p className="line-clamp-1 text-sm">
+                                        {attachment.name}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
                     )}
                 </>
             )}
