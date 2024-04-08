@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon, File } from "lucide-react";
+import { Pencil, PlusCircle, ImageIcon, File, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -25,12 +25,13 @@ export const AttachmentForm = ({
     courseId,
 }: AttachmentFormProps) => {
     const [isEditing, setIsEditing] = useState(false);
+    const [deletingId, setDeletingId] = useState<string | null>(null);
 
     const toggleEdit = () => setIsEditing((current) => !current);
 
     const router = useRouter();
 
-    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
             await axios.post(`/api/courses/${courseId}/attachments`, values);
             toast.success("Course updated successfully.");
@@ -40,7 +41,19 @@ export const AttachmentForm = ({
             toast.error("Something went wrong!");
         }
     };
-    console.log(initialData.attachments);
+
+    const handleDelete = async (id: string) => {
+        try {
+            setDeletingId(id);
+            await axios.delete(`/api/courses/${courseId}/attachments/${id}`);
+            toast.success("Attachment removed!");
+            router.refresh();
+        } catch (error) {
+            toast.error("Something went wrong!");
+        } finally {
+            setDeletingId(null);
+        }
+    };
 
     return (
         <div className="mt-6 rounded-md border bg-slate-100 p-4">
@@ -74,6 +87,20 @@ export const AttachmentForm = ({
                                     <p className="line-clamp-1 text-sm">
                                         {attachment.name}
                                     </p>
+                                    {deletingId === attachment.id ? (
+                                        <div>
+                                            <Loader2 className="h-4 w-4 animate-spin" />
+                                        </div>
+                                    ) : (
+                                        <button
+                                            onClick={() =>
+                                                handleDelete(attachment.id)
+                                            }
+                                            className="ml-auto hover:opacity-75"
+                                        >
+                                            <X className="h-4 w-4" />
+                                        </button>
+                                    )}
                                 </div>
                             ))}
                         </div>
@@ -86,7 +113,7 @@ export const AttachmentForm = ({
                         endPoint="courseAttachments"
                         onChange={(url) => {
                             if (url) {
-                                onSubmit({ url: url });
+                                handleSubmit({ url: url });
                             }
                         }}
                     />
