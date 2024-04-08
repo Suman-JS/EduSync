@@ -16,6 +16,7 @@ import { ImageForm } from "./_components/ImageForm";
 import { CategoryForm } from "./_components/CategoryForm";
 import PriceForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/PriceForm";
 import { AttachmentForm } from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/AttachmentForm";
+import ChaptersForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/ChaptersForm";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     const { userId } = auth();
@@ -30,6 +31,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
             userId,
         },
         include: {
+            chapters: {
+                orderBy: {
+                    position: "asc",
+                },
+            },
             attachments: {
                 orderBy: {
                     createdAt: "desc",
@@ -99,7 +105,12 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
                                 <IconBadge icon={ListChecks} />
                                 <h2 className="text-xl">Course chapters</h2>
                             </div>
-                            <div>TODO: Chapters</div>
+                            <div>
+                                <ChaptersForm
+                                    initialData={course}
+                                    courseId={course.id}
+                                />
+                            </div>
                         </div>
                         <div>
                             <div className="flex items-center gap-x-2">
