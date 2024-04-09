@@ -16,40 +16,42 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
+import { Pencil, PlusCircle } from "lucide-react";
 import toast from "react-hot-toast";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
-import { Course } from "@prisma/client";
+import { Chapter, Course } from "@prisma/client";
+import { Input } from "@/components/ui/input";
+import ChaptersList from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/ChaptersList";
 
 type ChaptersFormProps = {
-    initialData: Course;
+    initialData: Course & { chapters: Chapter[] };
     courseId: string;
 };
 
 const formSchema = z.object({
-    description: z.string().min(1, {
-        message: "Description is required!",
-    }),
+    title: z.string().min(1, { message: "Chapter title is required!" }),
 });
 
 const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
-    const [isEditing, setIsEditing] = useState(false);
+    const [isUpdating, setIsUpdating] = useState(false);
+    const [isCreating, setIsCreating] = useState(false);
     const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            description: initialData?.description || "",
+            title: "",
         },
     });
 
     const { isSubmitting, isValid } = form.formState;
+
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            await axios.patch(`/api/courses/${courseId}`, values);
-            toast.success("Course updated successfully.");
-            toggleEdit();
+            await axios.post(`/api/courses/${courseId}/chapters`, values);
+            toast.success("Chapter created successfully.");
+            toggleCreating();
             router.refresh();
         } catch (error) {
             console.error(error);
@@ -57,34 +59,25 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
         }
     };
 
-    const toggleEdit = () => {
-        setIsEditing((current) => !current);
+    const toggleCreating = () => {
+        setIsCreating((current) => !current);
     };
     return (
         <div className="mt-6 rounded-md border bg-slate-100 p-4">
             <div className="flex items-center justify-between font-medium">
                 Course chapters
-                <Button variant="ghost" onClick={toggleEdit}>
-                    {isEditing ? (
+                <Button variant="ghost" onClick={toggleCreating}>
+                    {isCreating ? (
                         <>Cancel</>
                     ) : (
                         <>
-                            <Pencil className="mr-2 h-4 w-4" />
-                            Edit description
+                            <PlusCircle className="mr-2 h-4 w-4" />
+                            Add a chapter
                         </>
                     )}
                 </Button>
             </div>
-            {!isEditing ? (
-                <p
-                    className={cn(
-                        "mt-2 text-sm",
-                        !initialData.description && "italic text-slate-500"
-                    )}
-                >
-                    {initialData.description || "No description"}
-                </p>
-            ) : (
+            {isCreating && (
                 <Form {...form}>
                     <form
                         className="mt-4 space-y-4"
@@ -92,13 +85,13 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
                     >
                         <FormField
                             control={form.control}
-                            name="description"
+                            name="title"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormControl>
-                                        <Textarea
+                                        <Input
                                             disabled={isSubmitting}
-                                            placeholder="e.g. 'This course is about...'"
+                                            placeholder="e.g. 'Introduction to the course.'"
                                             {...field}
                                         />
                                     </FormControl>
@@ -106,16 +99,35 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
                                 </FormItem>
                             )}
                         />
-                        <div className="flex items-center gap-x-2">
-                            <Button
-                                disabled={!isValid || isSubmitting}
-                                type="submit"
-                            >
-                                Save
-                            </Button>
-                        </div>
+                        <Button
+                            disabled={!isValid || isSubmitting}
+                            type="submit"
+                        >
+                            Create
+                        </Button>
                     </form>
                 </Form>
+            )}
+            {!isCreating && (
+                <div
+                    className={cn(
+                        "mt-2 text-sm",
+                        !initialData.chapters.length && "italic text-slate-500"
+                    )}
+                >
+                    {!initialData.chapters.length && "No chapters"}
+
+                    <ChaptersList
+                        onEdit={() => {}}
+                        onReorder={() => {}}
+                        items={initialData.chapters || []}
+                    />
+                </div>
+            )}
+            {!isCreating && (
+                <p className="mt-4 text-sm text-muted-foreground">
+                    Drag & drop to re-order the chapters
+                </p>
             )}
         </div>
     );
