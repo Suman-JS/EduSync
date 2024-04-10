@@ -16,9 +16,8 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Pencil, PlusCircle } from "lucide-react";
+import { Loader2, PlusCircle } from "lucide-react";
 import toast from "react-hot-toast";
-import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
 import { Chapter, Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
@@ -62,8 +61,36 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
     const toggleCreating = () => {
         setIsCreating((current) => !current);
     };
+
+    const handleReorder = async (
+        updatedata: { id: string; position: number }[]
+    ) => {
+        try {
+            setIsUpdating(true);
+            await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+                list: updatedata,
+            });
+            toast.success("Chapters re-ordered!");
+            router.refresh();
+        } catch (error) {
+            console.error(error);
+            toast.error("Something went wrong!");
+        } finally {
+            setIsUpdating(false);
+        }
+    };
+
+    const handleEdit = async (id: string) => {
+        router.push(`/teacher/courses/${courseId}/chapters/${id}`);
+    };
+
     return (
-        <div className="mt-6 rounded-md border bg-slate-100 p-4">
+        <div className="relative mt-6 rounded-md border bg-slate-100 p-4">
+            {isUpdating && (
+                <div className="absolute right-0 top-0 flex h-full w-full items-center justify-center rounded-md bg-slate-500/20">
+                    <Loader2 className="h-6 w-6 animate-spin text-sky-700" />
+                </div>
+            )}
             <div className="flex items-center justify-between font-medium">
                 Course chapters
                 <Button variant="ghost" onClick={toggleCreating}>
@@ -118,8 +145,8 @@ const ChaptersForm = ({ initialData, courseId }: ChaptersFormProps) => {
                     {!initialData.chapters.length && "No chapters"}
 
                     <ChaptersList
-                        onEdit={() => {}}
-                        onReorder={() => {}}
+                        onEdit={handleEdit}
+                        onReorder={handleReorder}
                         items={initialData.chapters || []}
                     />
                 </div>

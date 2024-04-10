@@ -17,7 +17,7 @@
     background-image: linear-gradient(135deg, #1b0034 10%, #33265c 100%);
     background-attachment: fixed;
     background-size: cover;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 .error {
