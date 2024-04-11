@@ -1,3 +1,5 @@
+import ChapterDescriptionForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/_components/ChapterDescriptionForm";
+import ChapterTitleForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/_components/ChapterTitleForm";
 import { IconBadge } from "@/components/IconBadge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
@@ -71,7 +73,16 @@ const ChapterIdPage = async ({
                         <IconBadge icon={LayoutDashboard} />
                         <h2 className="text-xl">Customize your chapter</h2>
                     </div>
-                    {/* TODO: Chapter title form */}
+                    <ChapterTitleForm
+                        initialData={chapter}
+                        chapterId={params.chapterId}
+                        courseId={params.courseId}
+                    />
+                    <ChapterDescriptionForm
+                        initialData={chapter}
+                        chapterId={params.chapterId}
+                        courseId={params.courseId}
+                    />
                 </div>
             </div>
         </div>

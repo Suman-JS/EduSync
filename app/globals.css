@@ -8,6 +8,10 @@ body,
     height: 100%;
 }
 
+.ql-container {
+    font-size: 16px !important;
+}
+
 @layer base {
     :root {
         --background: 0 0% 100%;
@@ -83,10 +87,10 @@ body,
 
 @layer components {
     .error {
-        @apply font-err mt-[20px] text-center text-[30px] text-[#c0d7dd];
+        @apply mt-[20px] text-center font-err text-[30px] text-[#c0d7dd];
     }
 
     .blod2 {
-        @apply rounded-blod animate-blod left-[20%] top-[23%] h-[13px] w-[13px] rotate-[130] opacity-0;
+        @apply left-[20%] top-[23%] h-[13px] w-[13px] rotate-[130] animate-blod rounded-blod opacity-0;
     }
 }
