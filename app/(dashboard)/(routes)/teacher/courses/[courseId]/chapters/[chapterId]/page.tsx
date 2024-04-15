@@ -1,10 +1,11 @@
 import ChapterAccessForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/_components/ChapterAccessForm";
 import ChapterDescriptionForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/_components/ChapterDescriptionForm";
 import ChapterTitleForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/_components/ChapterTitleForm";
+import { ChapterVideoForm } from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/chapters/[chapterId]/_components/ChapterVideoForm";
 import { IconBadge } from "@/components/IconBadge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { ArrowLeft, Eye, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -50,51 +51,12 @@ const ChapterIdPage = async ({
             <div className="flex items-center justify-between">
                 <div className="w-full">
                     <Link
-                        href={`/teacher/courses/${params.courseId}`}
-                        className="mb-6 flex items-center text-sm transition hover:opacity-75"
+                        href={`teacher/courses/${params.courseId}`}
+                        className="mb-6 flex items-center text-sm transition-all hover:opacity-75"
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Back to course setup
                     </Link>
-                    <div className="flex w-full items-center justify-between">
-                        <div className="flex flex-col gap-y-2">
-                            <h1 className="text-2xl font-medium">
-                                Chapter Creation
-                            </h1>
-                            <span className="text-sm text-slate-700">
-                                Complete all fields {completionText}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
-                <div className="space-y-4">
-                    <div className="flex items-center gap-x-2">
-                        <IconBadge icon={LayoutDashboard} />
-                        <h2 className="text-xl">Customize your chapter</h2>
-                    </div>
-                    <ChapterTitleForm
-                        initialData={chapter}
-                        chapterId={params.chapterId}
-                        courseId={params.courseId}
-                    />
-                    <ChapterDescriptionForm
-                        initialData={chapter}
-                        chapterId={params.chapterId}
-                        courseId={params.courseId}
-                    />
-                </div>
-                <div>
-                    <div className="flex items-center gap-x-2">
-                        <IconBadge icon={Eye} />
-                        <h2 className="text-xl">Access Settings</h2>
-                    </div>
-                    <ChapterAccessForm
-                        initialData={chapter}
-                        courseId={params.courseId}
-                        chapterId={params.chapterId}
-                    />
                 </div>
             </div>
         </div>
