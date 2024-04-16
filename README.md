@@ -114,7 +114,7 @@ RUN \
     elif [ -f package-lock.json ]; then npm ci; \
 
 # I'm using pnpm so adding prisma in this section, if you are using something else the make the changes to there
-    elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --frozen-lockfile; \
+    elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm i --no-frozen-lockfile; \
     else echo "Lockfile not found." && exit 1; \
     fi
 
