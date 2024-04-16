@@ -31,8 +31,8 @@ const iconVariants = cva("", {
             success: "text-emerald-700",
         },
         size: {
-            default: "h-8 w-8",
-            sm: "h-4 w-4",
+            default: "size-8",
+            sm: "size-4",
         },
     },
     defaultVariants: {
@@ -44,9 +44,10 @@ const iconVariants = cva("", {
 type BackgroundvarientsProps = VariantProps<typeof backgroundVariants>;
 type IconvarientProps = VariantProps<typeof iconVariants>;
 
-interface IconBadgeProps extends BackgroundvarientsProps, IconvarientProps {
-    icon: LucideIcon;
-}
+type IconBadgeProps = BackgroundvarientsProps &
+    IconvarientProps & {
+        icon: LucideIcon;
+    };
 
 export const IconBadge = ({ icon: Icon, variant, size }: IconBadgeProps) => {
     return (

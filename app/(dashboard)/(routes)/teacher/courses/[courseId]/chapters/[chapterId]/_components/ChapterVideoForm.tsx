@@ -57,13 +57,13 @@ export const ChapterVideoForm = ({
                     {isEditing && <>Cancel</>}
                     {!isEditing && !initialData.videoUrl && (
                         <>
-                            <PlusCircle className="mr-2 h-4 w-4" />
+                            <PlusCircle className="mr-2 size-4" />
                             Add a video
                         </>
                     )}
                     {!isEditing && initialData.videoUrl && (
                         <>
-                            <Pencil className="mr-2 h-4 w-4" />
+                            <Pencil className="mr-2 size-4" />
                             Edit video
                         </>
                     )}

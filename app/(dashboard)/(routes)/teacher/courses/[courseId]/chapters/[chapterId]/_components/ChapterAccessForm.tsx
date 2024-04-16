@@ -79,7 +79,7 @@ const ChapterAccessForm = ({
                         <>Cancel</>
                     ) : (
                         <>
-                            <Pencil className="mr-2 h-4 w-4" />
+                            <Pencil className="mr-2 size-4" />
                             Edit access
                         </>
                     )}
