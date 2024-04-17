@@ -17,6 +17,8 @@ import { CategoryForm } from "./_components/CategoryForm";
 import PriceForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/PriceForm";
 import { AttachmentForm } from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/AttachmentForm";
 import ChaptersForm from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/ChaptersForm";
+import Banner from "@/components/Banner";
+import CourseActions from "@/app/(dashboard)/(routes)/teacher/courses/[courseId]/_components/CourseActions";
 
 const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
     const { userId } = auth();
@@ -68,8 +70,16 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 
     const completionText = `(${completedFields}/${totalFields})`;
 
+    const isComplete = requiredFields.every(Boolean);
+
     return (
         <>
+            {!course.isPublished && (
+                <Banner
+                    variant="warning"
+                    label="This course is not published yet. It will not be visible to the students."
+                />
+            )}
             <div className="p-6">
                 <div className="flex items-center justify-between">
                     <div className="flex flex-col gap-y-2">
@@ -78,6 +88,11 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
                             Complete all fields {completionText}
                         </span>
                     </div>
+                    <CourseActions
+                        disabled={!isComplete}
+                        courseId={params.courseId}
+                        isPublished={course.isPublished}
+                    />
                 </div>
                 <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2">
                     <div>
