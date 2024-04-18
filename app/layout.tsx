@@ -7,6 +7,7 @@ import { extractRouterConfig } from "uploadthing/server";
 import { ourFileRouter } from "@/app/api/uploadthing/core";
 import ToasterProvider from "@/components/provider/ToasterProvider";
 import "./globals.css";
+import ConfettiProvider from "@/components/provider/ConfettiProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body className={inter.className}>
+                    <ConfettiProvider />
                     <ToasterProvider />
                     <NextSSRPlugin
                         routerConfig={extractRouterConfig(ourFileRouter)}
