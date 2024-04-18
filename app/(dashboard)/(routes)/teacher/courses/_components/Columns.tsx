@@ -37,17 +37,15 @@ export const columns: ColumnDef<Course>[] = [
         accessorKey: "price",
         header: ({ column }) => {
             return (
-                <div className="">
-                    <Button
-                        variant="ghost"
-                        onClick={() =>
-                            column.toggleSorting(column.getIsSorted() === "asc")
-                        }
-                    >
-                        Price
-                        <ArrowUpDown className="ml-2 size-4" />
-                    </Button>
-                </div>
+                <Button
+                    variant="ghost"
+                    onClick={() =>
+                        column.toggleSorting(column.getIsSorted() === "asc")
+                    }
+                >
+                    Price
+                    <ArrowUpDown className="ml-2 size-4" />
+                </Button>
             );
         },
         cell: ({ row }) => {
@@ -57,7 +55,7 @@ export const columns: ColumnDef<Course>[] = [
                 currency: "USD",
             }).format(price);
 
-            return <div>{formatted}</div>;
+            return <div className="font-medium">{formatted}</div>;
         },
     },
     {
@@ -89,6 +87,7 @@ export const columns: ColumnDef<Course>[] = [
     },
     {
         id: "action",
+        header: "Action",
         cell: ({ row }) => {
             const { id } = row.original;
 
