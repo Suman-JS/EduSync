@@ -3,13 +3,11 @@ import { db } from "@/lib/db";
 import React from "react";
 
 const SearchPage = async () => {
-    const categories = db.category.findMany({
+    const categories = await db.category.findMany({
         orderBy: {
             name: "asc",
         },
     });
-
-    
 
     return (
         <div className="p-6">
