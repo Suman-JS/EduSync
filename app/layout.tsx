@@ -8,6 +8,8 @@ import { ourFileRouter } from "@/app/api/uploadthing/core";
 import ToasterProvider from "@/components/provider/ToasterProvider";
 import "./globals.css";
 import ConfettiProvider from "@/components/provider/ConfettiProvider";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +30,8 @@ export default function RootLayout({
                 <body className={inter.className}>
                     <ConfettiProvider />
                     <ToasterProvider />
+                    <SpeedInsights />
+                    <Analytics />
                     <NextSSRPlugin
                         routerConfig={extractRouterConfig(ourFileRouter)}
                     />
