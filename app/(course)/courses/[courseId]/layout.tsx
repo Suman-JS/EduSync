@@ -5,7 +5,7 @@ import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import getProgress from "@/actions/getProgress";
 import CourseSidebar from "@/app/(course)/courses/[courseId]/_components/CourseSidebar";
-import CourseNavbar from "./_components/CourseNavbar";
+import CourseNavbar from "@/app/(course)/courses/[courseId]/_components/CourseNavbar";
 
 const CourseLayout = async ({
     children,

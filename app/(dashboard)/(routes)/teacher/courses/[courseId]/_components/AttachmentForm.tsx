@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon, File, Loader2, X } from "lucide-react";
+import { PlusCircle, File, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -83,7 +83,7 @@ export const AttachmentForm = ({
                                     key={attachment.id}
                                     className="flex w-full items-center rounded-md border border-sky-200 bg-sky-100 p-3 text-sky-700"
                                 >
-                                    <File className="mr-2 size-4 flex-shrink-0" />
+                                    <File className="mr-2 size-4 shrink-0" />
                                     <p className="line-clamp-1 text-sm">
                                         {attachment.name}
                                     </p>

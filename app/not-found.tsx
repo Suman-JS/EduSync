@@ -28,7 +28,7 @@ export default function NotFound() {
                             Oops, the page you&apos;re looking for Disappeared!
                         </p>
                         <Link href="/">
-                            <button className="z-[9] mt-[20px] cursor-pointer  rounded-[10px] border-none bg-[#c0d7dd] pb-[10px] pl-[20px] pr-[20px] pt-[10px] font-err text-[30px] text-[#33265c] shadow-btn transition-all duration-300 ease-linear hover:shadow-pnf">
+                            <button className="z-[9] mt-[20px] cursor-pointer  rounded-[10px] border-none bg-[#c0d7dd]  px-[20px] py-[10px] font-err text-[30px] text-[#33265c] shadow-btn transition-all duration-300 ease-linear hover:shadow-pnf">
                                 Go Back
                             </button>
                         </Link>

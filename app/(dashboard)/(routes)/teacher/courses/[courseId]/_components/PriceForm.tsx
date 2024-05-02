@@ -18,7 +18,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import toast from "react-hot-toast";
-import { cn } from "@/lib/utils";
 import { Course } from "@prisma/client";
 import { Input } from "@/components/ui/input";
 import { formatPrice } from "@/lib/format";

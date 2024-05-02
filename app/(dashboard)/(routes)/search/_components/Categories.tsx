@@ -16,7 +16,6 @@ import {
     FaGlobe,
     FaHammer,
     FaLanguage,
-    FaLeaf,
     FaRegLightbulb,
     FaTrophy,
     FaBitcoin,

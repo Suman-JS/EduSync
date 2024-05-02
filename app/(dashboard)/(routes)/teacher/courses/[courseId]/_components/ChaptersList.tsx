@@ -90,7 +90,7 @@ const ChaptersList = ({ items, onEdit, onReorder }: ChaptersListProps) => {
                                             )}
                                             {...provided.dragHandleProps}
                                         >
-                                            <Grip className="h-5 w-5" />
+                                            <Grip className="size-5" />
                                         </div>
                                         {chapter.title}
                                         <div className="ml-auto flex items-center gap-x-2 pr-2">

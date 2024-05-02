@@ -14,15 +14,12 @@ import {
     FormDescription,
     FormField,
     FormItem,
-    FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Pencil } from "lucide-react";
 import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { Chapter } from "@prisma/client";
-import Editor from "@/components/Editor";
-import Preview from "@/components/Preview";
 import { Checkbox } from "@/components/ui/checkbox";
 
 type ChapterAccessFormProps = {
