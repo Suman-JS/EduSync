@@ -32,6 +32,35 @@ const VideoPlayer = ({
     completeOnEnd,
 }: VideoPlayerProps) => {
     const [isReady, setIsReady] = useState(false);
+    const router = useRouter();
+    const confetti = useConfettiStore();
+
+    const handleVideoEnd = async () => {
+        try {
+            if (completeOnEnd) {
+                await axios.put(
+                    `/api/courses/${courseId}/chapters/${chapterId}/progress`,
+                    {
+                        isCompleted: true,
+                    }
+                );
+            }
+
+            if (!nextChapterId) {
+                toast.success("Hurry! You have completed the course.");
+                confetti.onOpen();
+            }
+
+            router.refresh();
+
+            if (nextChapterId) {
+                toast.success("Chapter completed, starting next chapter.");
+                router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+            }
+        } catch (error) {
+            toast.error("Something went wrong!");
+        }
+    };
 
     return (
         <div className="relative aspect-video">
@@ -51,7 +80,7 @@ const VideoPlayer = ({
                     title={title}
                     className={cn(!isReady && "hidden")}
                     onCanPlay={() => setIsReady(true)}
-                    onEnded={() => {}}
+                    onEnded={handleVideoEnd}
                     autoPlay
                     loop={false}
                     backwardSeekOffset={10}

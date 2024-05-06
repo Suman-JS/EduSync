@@ -8,6 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
 import { File } from "lucide-react";
 import VideoPlayer from "./_components/VideoPlayer";
+import CourseProgressButton from "@/app/(course)/courses/[courseId]/chapters/[chapterId]/_components/CourseProgressButton";
 
 const ChapterIdPage = async ({
     params,
@@ -77,9 +78,12 @@ const ChapterIdPage = async ({
                         </h2>
 
                         {purchase ? (
-                            <div>
-                                {/* //! TODO: Add Course Progress button */}
-                            </div>
+                            <CourseProgressButton
+                                chapterId={params.chapterId}
+                                courseId={params.courseId}
+                                nextChapterId={nextChapter?.id}
+                                isCompleted={!!userProgress?.isCompleted}
+                            />
                         ) : (
                             <CourseEnrollButton
                                 courseId={params.courseId}
