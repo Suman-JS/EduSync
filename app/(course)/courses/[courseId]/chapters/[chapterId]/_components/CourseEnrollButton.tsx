@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib/format";
-import toast from "react-hot-toast";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 type CourseEnrollButtonProps = {
     courseId: string;

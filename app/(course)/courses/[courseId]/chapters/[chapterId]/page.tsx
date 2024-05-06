@@ -1,14 +1,13 @@
-import React from "react";
 import { redirect } from "next/navigation";
 
 import { getChapter } from "@/actions/getChapter";
-import { auth } from "@clerk/nextjs";
-import Banner from "@/components/Banner";
-import VideoPlayer from "./_components/VideoPlayer";
 import CourseEnrollButton from "@/app/(course)/courses/[courseId]/chapters/[chapterId]/_components/CourseEnrollButton";
-import { Separator } from "@/components/ui/separator";
+import Banner from "@/components/Banner";
 import Preview from "@/components/Preview";
+import { Separator } from "@/components/ui/separator";
+import { auth } from "@clerk/nextjs";
 import { File } from "lucide-react";
+import VideoPlayer from "./_components/VideoPlayer";
 
 const ChapterIdPage = async ({
     params,

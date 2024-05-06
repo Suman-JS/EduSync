@@ -1,9 +1,11 @@
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+
+import CourseProgress from "@/components/CourseProgress";
 import { IconBadge } from "@/components/IconBadge";
 import { formatPrice } from "@/lib/format";
 import { BookOpen } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
 
 type CoursecardProps = {
     id: string;
@@ -50,7 +52,11 @@ const CourseCard = ({
                         </div>
                     </div>
                     {progress !== null ? (
-                        <div>{/* //! TODO: Progress Component */}</div>
+                        <CourseProgress
+                            varient={progress === 100 ? "success" : "default"}
+                            value={progress}
+                            size="sm"
+                        />
                     ) : (
                         <p className="text-base font-medium text-slate-700 md:text-sm">
                             {formatPrice(price)}
